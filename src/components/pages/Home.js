@@ -5,7 +5,7 @@ export const Home = () => {
   useEffect(() => {
     const movieData = async () => {
       //   console.log(movieApi.nowPlaying());
-      //   promise로 뜸, 필요한 값은 promise > object > data > results
+      //   promise로 뜸(async가 promise로 반환?, 필요한 값은 promise > object > data > results
       //   한번 가공해줘야함 => 변수로?!
 
       //   const playing = movieApi.nowPlaying();
@@ -19,12 +19,16 @@ export const Home = () => {
       const {
         data: { results },
       } = await playing;
+      // async는 함수 앞에 붙이기
+      // await는 async 와 짝일때만 작동함 / await 뒤를 읽는 동안 다른 것들을 처리
+
       console.log(results[0]);
       //   마지막 객체가 변수가 됨 => 콘솔에 찍을때 마지막 객체명 입력(배열방식으로 입력)
     };
     // 함수를 실행(호출)해줘야 함수안의 결과값 확인가능
     movieData();
   }, []);
+  // useEffect 를 쓸 땐 함수안에 함수 하나 더!
 
   return <></>;
 };
