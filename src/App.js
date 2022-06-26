@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { Footer } from "./components/Footer";
+import { Header } from "./components/Header";
+import { Home } from "./components/pages/Home";
+import { NotFound } from "./components/pages/NotFound";
+import { Sub1 } from "./components/pages/Sub1";
+import { Sub2 } from "./components/pages/Sub2";
+import { GlobalStyle } from "./styles/globalStyle";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <GlobalStyle />
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/sub1" element={<Sub1 />} />
+        <Route path="/sub2" element={<Sub2 />} />
+        <Route path="/*" element={<NotFound />} />
+      </Routes>
+      <Footer />
+    </Router>
   );
 }
 
