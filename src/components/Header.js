@@ -4,11 +4,12 @@ import styled from "styled-components";
 const HeaderWrap = styled.div`
   width: 100%;
   height: 80px;
-  background-color: #333;
+  /* background-color: #333; */
   padding: 0 250px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
 `;
 const Logo = styled.h3`
   font-size: 28px;
