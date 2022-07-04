@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import { mainStyle } from "../styles/globalStyle";
 
 const SFooter = styled.div`
   padding: 75px 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-top: 1px solid black;
+  border-top: 1px solid ${mainStyle.color};
 `;
 
 export const Footer = () => {

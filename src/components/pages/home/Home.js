@@ -1,23 +1,14 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
-import { movieApi } from "../../api";
-import { imgUrl } from "../../constant";
-
-const Section1 = styled.section``;
-
-const MainBanner = styled.div`
-  width: 100%;
-  height: 80vh;
-`;
-
-const TextWrap = styled.div``;
-
-const Title = styled.h3``;
-
-const Desc = styled.p``;
+import { movieApi } from "../../../api";
+import { movieNum } from "../../../constant";
+import { Container } from "../../Container";
+import { Banner } from "./Banner";
+import { Movies } from "./Movies";
 
 export const Home = () => {
   const [playing, setPlaying] = useState();
+  const [top, setTop] = useState();
+  const [pop, setPop] = useState();
 
   useEffect(() => {
     const movieData = async () => {
@@ -49,12 +40,26 @@ export const Home = () => {
 
       // ======================================
 
+      const rated = movieApi.topRated();
+      // console.log(rated);
+      const popular = movieApi.popular();
+
       try {
         const {
           data: { results: playingData },
         } = await play;
         // console.log(playingData);
         setPlaying(playingData);
+
+        const {
+          data: { results: ratedData },
+        } = await rated;
+        setTop(ratedData);
+
+        const {
+          data: { results: popData },
+        } = await popular;
+        setPop(popData);
       } catch (error) {}
     };
     // 함수를 실행(호출)해줘야 함수안의 결과값 확인가능
@@ -65,17 +70,19 @@ export const Home = () => {
   // console.log(playing[0]);
 
   return (
-    <Section1>
-      <MainBanner
-        style={{
-          background: `url(${imgUrl}${playing[0].backdrop_path}) no-repeat center / cover`,
-        }}
-      >
-        <TextWrap>
-          <Title></Title>
-          <Desc></Desc>
-        </TextWrap>
-      </MainBanner>
-    </Section1>
+    <>
+      {playing ? (
+        <>
+          <Banner playingData={playing[movieNum]} />
+          <Container>
+            <Movies movieData={playing} title="현재 상영 영화"></Movies>
+            <Movies movieData={top} title="인기 영화"></Movies>
+            <Movies movieData={pop} title="최근 인기 영화"></Movies>
+          </Container>
+        </>
+      ) : (
+        "loading..."
+      )}
+    </>
   );
 };
